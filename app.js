@@ -8,7 +8,7 @@ const saveBtn = document.getElementById("jsSave"); // 저장
 
 const FILL_ICON = `<i class="fas fa-fill-drip fa-2x"></i>`;
 const PAINT_ICON = `<i class="fas fa-paint-brush fa-2x"></i>`;
-const COLOR_BLACK = "#1c1c1c";
+const DEFAULT_COLOR = "#1c1c1c";
 
 // 직접 값 설정 -> 캔버스 크기를 가져오기
 // canvas.height = 700;
@@ -16,8 +16,12 @@ const COLOR_BLACK = "#1c1c1c";
 canvas.width = document.getElementsByClassName("canvas")[0].offsetWidth;
 canvas.height = document.getElementsByClassName("canvas")[0].offsetHeight;
 
+// 투명한 배경 방지
+ctx.fillStyle = "white";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
 // 초기값
-ctx.strokeStyle = COLOR_BLACK;
+ctx.strokeStyle = DEFAULT_COLOR;
 ctx.lineWidth = 2.5;
 
 let painting = false;
