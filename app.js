@@ -1,9 +1,10 @@
-const canvas = document.getElementById("jsCanvas");
-const ctx = canvas.getContext("2d");
-const colors = document.getElementsByClassName("jsColor");
-const range = document.getElementById("jsRange");
-const mode = document.getElementById("jsMode");
-const trash = document.getElementById("jsTrash");
+const canvas = document.getElementById("jsCanvas"); // 캔버스
+const ctx = canvas.getContext("2d"); // 콘텍스트
+const colors = document.getElementsByClassName("jsColor"); // 색상
+const range = document.getElementById("jsRange"); // 굵기
+const mode = document.getElementById("jsMode"); // 그리기or채우기
+const trash = document.getElementById("jsTrash"); // 리셋
+const saveBtn = document.getElementById("jsSave"); // 저장
 
 const FILL_ICON = `<i class="fas fa-fill-drip fa-2x"></i>`;
 const PAINT_ICON = `<i class="fas fa-paint-brush fa-2x"></i>`;
@@ -26,7 +27,13 @@ function stopPainting() {
   painting = false;
 }
 function startPainting() {
-  painting = true;
+  // 우클릭 그리기or채우기 차단
+  if (event.which != 1) {
+    return false;
+  } else {
+    // 좌클릭 그리기or채우기 가능
+    painting = true;
+  }
 }
 
 // 그리기
@@ -68,11 +75,6 @@ function handleModeClick() {
   }
 }
 
-// 리셋
-function trashClick(event) {
-  window.location.reload();
-}
-
 // 채우기
 function handleCanvasClick() {
   if (filling) {
@@ -80,13 +82,32 @@ function handleCanvasClick() {
   }
 }
 
+// 리셋
+function handleTrashClick(event) {
+  window.location.reload();
+}
+
+// 우클릭 저장 차단
+function handleCM(event) {
+  event.preventDefault();
+}
+
+// 저장
+function handleSaveClick(event) {
+  const image = canvas.toDataURL();
+  const link = document.createElement("a");
+  link.href = image;
+  link.download = "paintJS";
+  link.click();
+}
+
 if (canvas) {
-  // 캔버스 기준 마우스 위치가
-  canvas.addEventListener("mousemove", onMouseMove); // 캔버스 안
+  canvas.addEventListener("mousemove", onMouseMove); // 기본 상태
   canvas.addEventListener("mousedown", startPainting); // 클릭 중
   canvas.addEventListener("mouseup", stopPainting); // 클릭 끝
   canvas.addEventListener("mouseleave", stopPainting); // 캔버스 밖
-  canvas.addEventListener("click", handleCanvasClick);
+  canvas.addEventListener("mousedown", handleCanvasClick); // 채우기
+  canvas.addEventListener("contextmenu", handleCM); // 우클릭 저장 차단
 }
 
 // 조작
@@ -103,5 +124,9 @@ if (mode) {
 }
 
 if (trash) {
-  trash.addEventListener("click", trashClick);
+  trash.addEventListener("click", handleTrashClick);
+}
+
+if (saveBtn) {
+  saveBtn.addEventListener("click", handleSaveClick);
 }
