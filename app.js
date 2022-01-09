@@ -5,20 +5,13 @@ const range = document.getElementById("jsRange"); // 굵기
 const mode = document.getElementById("jsMode"); // 그리기or채우기
 const trash = document.getElementById("jsTrash"); // 리셋
 const saveBtn = document.getElementById("jsSave"); // 저장
-
 const FILL_ICON = `<i class="fas fa-fill-drip fa-2x"></i>`;
 const PAINT_ICON = `<i class="fas fa-paint-brush fa-2x"></i>`;
 const DEFAULT_COLOR = "#1c1c1c";
 
-// 직접 값 설정 -> 캔버스 크기를 가져오기
-// canvas.height = 700;
-// canvas.width = 700;
+// 캔버스 크기 가져오기
 canvas.width = document.getElementsByClassName("canvas")[0].offsetWidth;
 canvas.height = document.getElementsByClassName("canvas")[0].offsetHeight;
-
-// 투명한 배경 방지
-ctx.fillStyle = "white";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 // 초기값
 ctx.strokeStyle = DEFAULT_COLOR;
@@ -44,14 +37,30 @@ function startPainting() {
 function onMouseMove(event) {
   const x = event.offsetX;
   const y = event.offsetY;
-  if (!painting) {
-    // 클릭X -> 대기
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-  } else {
-    // 클릭O -> 실제 선 그림
+  if (painting) {
     ctx.lineTo(x, y);
     ctx.stroke();
+  } else {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+  }
+}
+
+// 채우기
+function handleCanvasClick() {
+  if (filling) {
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+}
+
+// 모드: 그리기or채우기
+function handleModeClick() {
+  if (filling === true) {
+    filling = false;
+    mode.innerHTML = FILL_ICON;
+  } else {
+    filling = true;
+    mode.innerHTML = PAINT_ICON;
   }
 }
 
@@ -66,24 +75,6 @@ function handleColorClick(event) {
 function handleRangeChange(event) {
   const size = event.target.value;
   ctx.lineWidth = size;
-}
-
-// 그리기or채우기
-function handleModeClick() {
-  if (filling === true) {
-    filling = false;
-    mode.innerHTML = FILL_ICON;
-  } else {
-    filling = true;
-    mode.innerHTML = PAINT_ICON;
-  }
-}
-
-// 채우기
-function handleCanvasClick() {
-  if (filling) {
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }
 }
 
 // 리셋
