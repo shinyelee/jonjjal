@@ -8,16 +8,22 @@ const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 800;
 
-// 브러쉬 시작점을 (50, 50)으로 이동
-ctx.moveTo(50, 50);
-// 선 그리기 위해 좌표 찍음
-ctx.lineTo(150, 50);
-ctx.lineTo(150, 150);
-ctx.lineTo(50, 150);
-ctx.lineTo(50, 50);
-// 선으로 연결
-ctx.stroke();
-// 채우기
-// ctx.fill();
+ctx.fillRect(200, 200, 50, 200);
+ctx.fillRect(400, 200, 50, 200);
 
-// -> 사각형 완성
+// 선 굵기 설정
+ctx.lineWidth = 2;
+// 비워진 사각형(stroke+rect)
+ctx.strokeRect(300, 300, 50, 100);
+// 채워진 사각형(fill+rect)
+ctx.fillRect(200, 200, 200, 20);
+
+// 시작점 이동
+ctx.moveTo(200, 200);
+// 선 긋기 위한 좌표 찍고
+ctx.lineTo(325, 100);
+ctx.lineTo(450, 200);
+// 채우기
+ctx.fill();
+
+// -> 집 완성
