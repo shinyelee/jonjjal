@@ -8,22 +8,16 @@ const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 800;
 
-// 사각형의
-ctx.rect(100, 100, 100, 100);
-// 테두리를 그리고
+// 브러쉬 시작점을 (50, 50)으로 이동
+ctx.moveTo(50, 50);
+// 선 그리기 위해 좌표 찍음
+ctx.lineTo(150, 50);
+ctx.lineTo(150, 150);
+ctx.lineTo(50, 150);
+ctx.lineTo(50, 50);
+// 선으로 연결
 ctx.stroke();
-// 채우기(기본 검정)
-ctx.fill();
+// 채우기
+// ctx.fill();
 
-// 새 경로 시작
-// -> 이미 그린 사각형과 그릴 사각형을 분리
-// -> 스타일을 따로 지정할 수 있음
-ctx.beginPath();
-// 다시 사각형을 만들고
-ctx.rect(200, 200, 100, 100);
-// 채울 색 지정(빨강) 후
-ctx.fillStyle = "red";
-// 채워주면 됨
-ctx.fill();
-
-// -> 검정 사각형과 빨강 사각형이 그려짐
+// -> 사각형 완성
