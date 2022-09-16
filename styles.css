@@ -1,0 +1,13 @@
+/* 캔버스 크기 설정 */
+canvas {
+  width: 800px;
+  height: 800px;
+  border: 1px solid black;
+}
+
+/* 캔버스를 화면 가운데로 정렬 */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
