@@ -29,13 +29,13 @@ function onMouseMove(event) {
 }
 
 // 마우스 좌클릭 중에는
-function onMouseDown() {
+function startDrawing() {
   // 선 그릴 수 있음
   isPainting = true;
 }
 
 // 마우스 좌클릭에서 손 떼면
-function onMouseUp() {
+function stopDrawing() {
   // 안 그림
   isPainting = false;
 }
@@ -43,6 +43,8 @@ function onMouseUp() {
 // 커서 움직임 이벤트 리스너
 canvas.addEventListener("mousemove", onMouseMove);
 // 커서 드래그 이벤트 리스너
-canvas.addEventListener("mousedown", onMouseDown);
+canvas.addEventListener("mousedown", startDrawing);
 // 커서 드래그 종료 이벤트 리스너
-canvas.addEventListener("mouseup", onMouseUp);
+canvas.addEventListener("mouseup", stopDrawing);
+// 커서 화면 탈출 이벤트 리스너
+canvas.addEventListener("mouseleave", stopDrawing);
