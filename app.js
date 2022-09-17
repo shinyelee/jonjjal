@@ -7,17 +7,42 @@ const ctx = canvas.getContext("2d");
 // 좌측 상단 기준으로 시작 (0, 0)
 canvas.width = 800;
 canvas.height = 800;
-
 // 선 굵기
 ctx.lineWidth = 2;
+// true -> 선 그리기
+// false -> 안 그리기
+let isPainting = false;
 
-// 클릭으로 선 그리기
-function onClick(event) {
-  // 클릭 이벤트가 일어나는 좌표
-  ctx.lineTo(event.offsetX, event.offsetY);
-  // 로 선 그리기
-  ctx.stroke();
+// 마우스 움직이는 중
+function onMouseMove(event) {
+  // 선 그리기 가능한 상태
+  if (isPainting) {
+    // 해당 좌표로 선 그리기
+    ctx.lineTo(event.offsetX, event.offsetY);
+    // 실행
+    ctx.stroke();
+    // 종료
+    return;
+  }
+  // 해당 좌표로 이동하기
+  ctx.moveTo(event.offsetX, event.offsetY);
 }
 
-// 클릭 이벤트 리스너
-canvas.addEventListener("click", onClick);
+// 마우스 좌클릭 중에는
+function onMouseDown() {
+  // 선 그릴 수 있음
+  isPainting = true;
+}
+
+// 마우스 좌클릭에서 손 떼면
+function onMouseUp() {
+  // 안 그림
+  isPainting = false;
+}
+
+// 커서 움직임 이벤트 리스너
+canvas.addEventListener("mousemove", onMouseMove);
+// 커서 드래그 이벤트 리스너
+canvas.addEventListener("mousedown", onMouseDown);
+// 커서 드래그 종료 이벤트 리스너
+canvas.addEventListener("mouseup", onMouseUp);
