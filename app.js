@@ -4,6 +4,8 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 // index.html의 line-width
 const lineWidth = document.getElementById("line-width");
+// index.html의 color
+const color = document.getElementById("color");
 
 // 캔버스 좌표 설정
 // 좌측 상단 기준으로 시작 (0, 0)
@@ -51,6 +53,12 @@ function onLineWidthChange(event) {
   ctx.lineWidth = event.target.value;
 }
 
+// 색 변경
+function onColorChange(event) {
+  // 사용자가 선택한 색으로 선 색 변경
+  ctx.strokeStyle = event.target.value;
+}
+
 // 커서 움직임 이벤트 리스너
 canvas.addEventListener("mousemove", onMouseMove);
 // 커서 드래그 이벤트 리스너
@@ -62,3 +70,5 @@ canvas.addEventListener("mouseleave", stopDrawing);
 
 // range(선 굵기) 변경 이벤트 리스너
 lineWidth.addEventListener("change", onLineWidthChange);
+// color(색) 변경 이벤트 리스너
+color.addEventListener("change", onColorChange);
