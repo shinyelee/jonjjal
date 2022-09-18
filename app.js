@@ -2,13 +2,15 @@
 const canvas = document.querySelector("canvas");
 // 캔버스에서 context는 브러쉬
 const ctx = canvas.getContext("2d");
+// index.html의 line-width
+const lineWidth = document.getElementById("line-width");
 
 // 캔버스 좌표 설정
 // 좌측 상단 기준으로 시작 (0, 0)
 canvas.width = 800;
 canvas.height = 800;
-// 선 굵기
-ctx.lineWidth = 2;
+// line-width의 range 값
+ctx.lineWidth = lineWidth.value;
 // true -> 선 그리기
 // false -> 안 그리기
 let isPainting = false;
@@ -24,6 +26,9 @@ function onMouseMove(event) {
     // 종료
     return;
   }
+  // 선 긋기 끝나면 새 경로(path) 시작함
+  // -> 이미 그려놓은 선까지 굵기가 함께 변경되는 것을 방지함
+  ctx.beginPath();
   // 해당 좌표로 이동하기
   ctx.moveTo(event.offsetX, event.offsetY);
 }
@@ -40,6 +45,12 @@ function stopDrawing() {
   isPainting = false;
 }
 
+// 선 굵기 변경
+function onLineWidthChange(event) {
+  // 사용자가 조정한 line-width의 range 값을 받아와서 선 굵기로 설정
+  ctx.lineWidth = event.target.value;
+}
+
 // 커서 움직임 이벤트 리스너
 canvas.addEventListener("mousemove", onMouseMove);
 // 커서 드래그 이벤트 리스너
@@ -48,3 +59,6 @@ canvas.addEventListener("mousedown", startDrawing);
 canvas.addEventListener("mouseup", stopDrawing);
 // 커서 화면 탈출 이벤트 리스너
 canvas.addEventListener("mouseleave", stopDrawing);
+
+// range(선 굵기) 변경 이벤트 리스너
+lineWidth.addEventListener("change", onLineWidthChange);
