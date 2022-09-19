@@ -12,11 +12,17 @@ const colorOptions = Array.from(
 );
 // index.html의 mode-btn
 const modeBtn = document.getElementById("mode-btn");
+// index.html의 reset-btn
+const resetBtn = document.getElementById("reset-btn");
+
+// 캔버스 크기를 상수로 설정하면 나중에 캔버스 크기를 바꾸고 싶을 때 유지보수 용이
+CANVAS_WIDTH = 800;
+CANVAS_HEIGHT = 800;
 
 // 캔버스 좌표 설정
 // 좌측 상단 기준으로 시작 (0, 0)
-canvas.width = 800;
-canvas.height = 800;
+canvas.width = CANVAS_WIDTH;
+canvas.height = CANVAS_HEIGHT;
 // line-width의 range 값
 ctx.lineWidth = lineWidth.value;
 
@@ -104,8 +110,16 @@ function onCanvasClilck() {
   // 이미 채우기 모드일 때만
   if (isFilling) {
     // 캔버스를 선택한 색으로 채워줌
-    ctx.fillRect(0, 0, 800, 800);
+    ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   }
+}
+
+// 리셋 버튼을 클릭하면
+function onResetClick() {
+  // 색을 하얀색으로 바꾼 후
+  ctx.fillStyle = "white";
+  // 캔버스를 채워줌
+  ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 }
 
 // 커서 움직임 이벤트 리스너
@@ -127,3 +141,5 @@ color.addEventListener("change", onColorChange);
 colorOptions.forEach((color) => color.addEventListener("click", onColorClick));
 // mode-btn(모드 버튼)
 modeBtn.addEventListener("click", onModeClick);
+// reset-btn(리셋 버튼)
+resetBtn.addEventListener("click", onResetClick);
