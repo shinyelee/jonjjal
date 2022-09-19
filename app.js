@@ -14,8 +14,10 @@ const colorOptions = Array.from(
 const modeBtn = document.getElementById("mode-btn");
 // index.html의 reset-btn
 const resetBtn = document.getElementById("reset-btn");
+// index.html의 file-btn
+const fileBtn = document.getElementById("file-btn");
 
-// 캔버스 크기를 상수로 설정하면 나중에 캔버스 크기를 바꾸고 싶을 때 유지보수 용이
+// 캔버스 크기를 상수로 설정하면 나중에 캔버스 크기를 바꾸고 싶을 때 유지보수 용이함
 CANVAS_WIDTH = 800;
 CANVAS_HEIGHT = 800;
 
@@ -122,6 +124,32 @@ function onResetClick() {
   ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 }
 
+// 이미지 파일 첨부 버튼을 클릭하면
+function onFileChange(event) {
+  // 자바스크립트를 이용해서 파일을 가져오고
+  const file = event.target.files[0];
+  // 해당 파일의 URL을 얻어옴
+  const url = URL.createObjectURL(file);
+  // 이미지 생성
+  const image = new Image();
+  // 이미지 소스
+  image.src = url;
+  // 불러옴
+  image.onload = function () {
+    // ctx.drawImage(이미지, X축 좌표, Y축 좌표, 이미지 너비, 이미지 높이);
+    // 기준점이 (0, 0) -> 이미지가 좌측 상단에 여백 없이 붙어서 출력됨
+    // 이미지 너비 및 높이를 캔버스와 동일하게 설정 -> 이미지가 캔버스 전체를 채움
+    ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    // file input을 비워줌
+    fileBtn.value = null;
+  };
+}
+
+// canvas.addEventListener("mousemove", onMouseMove); 는
+// canvas.onmousemove = onMove 와 거의 같음
+// 다만, addEventListener를 사용하는 게 유지보수 측면에서 더 용이함
+// (같은 이벤트 내에 많은 이벤트 리스너를 추가/삭제할 수 있기 때문)
+
 // 커서 움직임 이벤트 리스너
 canvas.addEventListener("mousemove", onMouseMove);
 // 커서 드래그 이벤트 리스너
@@ -143,3 +171,5 @@ colorOptions.forEach((color) => color.addEventListener("click", onColorClick));
 modeBtn.addEventListener("click", onModeClick);
 // reset-btn(리셋 버튼)
 resetBtn.addEventListener("click", onResetClick);
+// file-btn(이미지 파일 첨부 버튼)
+fileBtn.addEventListener("change", onFileChange);
