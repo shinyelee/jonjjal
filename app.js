@@ -14,6 +14,8 @@ const colorOptions = Array.from(
 const modeBtn = document.getElementById("mode-btn");
 // index.html의 reset-btn(리셋 버튼)
 const resetBtn = document.getElementById("reset-btn");
+// index.html의 save-btn(저장 버튼)
+const saveBtn = document.getElementById("save-btn");
 // index.html의 file-input(파일 첨부)
 const fileInput = document.getElementById("file-input");
 // index.html의 text-input(텍스트 입력란)
@@ -123,6 +125,20 @@ function onResetClick() {
   ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 }
 
+// 저장 버튼 클릭하면
+function onSaveClick() {
+  // 현재 캔버스의 URL을 얻음
+  const url = canvas.toDataURL();
+  // index.html에 a 태그 생성
+  const a = document.createElement("a");
+  // 해당 URL을 하이퍼링크에 넣음
+  a.href = url;
+  // image.png라는 이름으로 저장
+  a.download = "image.png";
+  // 클릭하면 현재 캔버스를 다운로드함
+  a.click();
+}
+
 // 파일 첨부 클릭하면
 function onFileChange(event) {
   // 자바스크립트를 이용해 파일을 가져와
@@ -142,6 +158,7 @@ function onFileChange(event) {
   };
 }
 
+// 텍스트 입력 후 캔버스 더블클릭하면
 function onTextDoubleClick(event) {
   // 텍스트 입력란에 사용자가 입력한 텍스트 값 읽음
   const text = textInput.value;
@@ -182,15 +199,17 @@ canvas.addEventListener("dblclick", onTextDoubleClick);
 
 // 도구모음 이벤트
 
-// 리셋 버튼 클릭(캔버스 초기화) 이벤트 리스너
-resetBtn.addEventListener("click", onResetClick);
 // 모드 버튼 클릭(그리기/채우기 전환) 이벤트 리스너
 modeBtn.addEventListener("click", onModeClick);
+// 리셋 버튼 클릭(캔버스 초기화) 이벤트 리스너
+resetBtn.addEventListener("click", onResetClick);
+// 저장 버튼 클릭(현재 캔버스를 이미지 파일로 저장) 이벤트 리스너
+saveBtn.addEventListener("click", onSaveClick);
 // 팔레트 클릭(해당 색으로 변경) 이벤트 리스너
 colorOptions.forEach((color) => color.addEventListener("click", onColorClick));
 
 // 변경(사용자가 지정색) 이벤트 리스너
-color.addEventListener("change", onColorChange);
+settingColor.addEventListener("change", onColorChange);
 // 변경(선 굵기) 이벤트 리스너
 lineWidth.addEventListener("change", onLineWidthChange);
 // 변경(파일 첨부) 이벤트 리스너
