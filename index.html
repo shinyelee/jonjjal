@@ -10,13 +10,13 @@
   <body></body>
   <!-- 캔버스 -->
   <canvas></canvas>
-  <!-- 선 굵기 -->
+  <!-- 선 굵기 - 최솟값1, 최댓값9, 기본값5  -->
   <input id="line-width" type="range" min="1" max="9" value="5" />
   <!-- 색 -->
   <div>
-    <!-- 사용자가 지정한 색 -->
-    <input id="color" type="color" />
-    <!-- 팔레트 -->
+    <!-- 사용자 지정색 -->
+    <input id="setting-color" type="color" />
+    <!-- 색 팔레트 -->
     <div
       class="color-option"
       style="background-color: plum"
@@ -68,11 +68,11 @@
       data-color="#F08080"
     ></div>
   </div>
-  <!-- 모드 버튼 -->
+  <!-- 모드 버튼 - 그리기 또는 채우기 -->
   <button id="mode-btn">채우기</button>
-  <!-- 리셋 버튼 -->
+  <!-- 리셋 버튼 - 캔버스 전체 초기화 -->
   <button id="reset-btn">리셋</button>
-  <!-- 이미지 파일 첨부 -->
+  <!-- 파일 첨부 - 이미지 파일 형식만 가능 -->
   <input id="file-input" type="file" accept="image/*" />
   <!-- 텍스트 삽입 -->
   <input
