@@ -14,8 +14,10 @@ const colorOptions = Array.from(
 const modeBtn = document.getElementById("mode-btn");
 // index.html의 reset-btn
 const resetBtn = document.getElementById("reset-btn");
-// index.html의 file-btn
-const fileBtn = document.getElementById("file-btn");
+// index.html의 file-input
+const fileInput = document.getElementById("file-input");
+// index.html의 text-input
+const textInput = document.getElementById("text-input");
 
 // 캔버스 크기를 상수로 설정하면 나중에 캔버스 크기를 바꾸고 싶을 때 유지보수 용이함
 CANVAS_WIDTH = 800;
@@ -141,8 +143,17 @@ function onFileChange(event) {
     // 이미지 너비 및 높이를 캔버스와 동일하게 설정 -> 이미지가 캔버스 전체를 채움
     ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     // file input을 비워줌
-    fileBtn.value = null;
+    fileInput.value = null;
   };
+}
+
+function onTextDoubleClick(event) {
+  // text-input에 사용자가 입력한 텍스트 값을 읽어냄
+  const text = textInput.value;
+  // lineWidth 1로 수정해줘야 텍스트가 제대로 표시됨
+  ctx.lineWidth = 1;
+  // strokeText로 해도 문제는 없음
+  ctx.fillText(text, event.offsetX, event.offsetY);
 }
 
 // canvas.addEventListener("mousemove", onMouseMove); 는
@@ -167,9 +178,11 @@ lineWidth.addEventListener("change", onLineWidthChange);
 color.addEventListener("change", onColorChange);
 // color-option(팔레트 색) 변경 이벤트 리스너
 colorOptions.forEach((color) => color.addEventListener("click", onColorClick));
-// mode-btn(모드 버튼)
+// mode-btn(모드 버튼) 클릭 이벤트 리스너
 modeBtn.addEventListener("click", onModeClick);
-// reset-btn(리셋 버튼)
+// reset-btn(리셋 버튼) 클릭 이벤트 리스너
 resetBtn.addEventListener("click", onResetClick);
-// file-btn(이미지 파일 첨부 버튼)
-fileBtn.addEventListener("change", onFileChange);
+// file-input(이미지 파일 첨부) 변경 이벤트 리스너
+fileInput.addEventListener("change", onFileChange);
+// text-input(텍스트 삽입) 더블클릭 이벤트 리스너
+textInput.addEventListener("dblclick", onTextDoubleClick);
