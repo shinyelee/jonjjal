@@ -125,36 +125,36 @@ function onResetClick() {
   ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 }
 
-// 저장 버튼 클릭하면
+// 저장 버튼을 클릭하면
 function onSaveClick() {
-  // 현재 캔버스의 URL을 얻음
+  // 현재 캔버스를 URL로 변환
   const url = canvas.toDataURL();
-  // index.html에 a 태그 생성
+  // index.html에 a 태그(링크) 생성
   const a = document.createElement("a");
-  // 해당 URL을 하이퍼링크에 넣음
+  // URL을 링크에 넣음
   a.href = url;
-  // image.png라는 이름으로 저장
+  // 링크에 download 속성 추가해 파일 이름 image.png로 설정
   a.download = "image.png";
-  // 클릭하면 현재 캔버스를 다운로드함
+  // 임의로 링크 클릭 -> 저장된 이미지(현재 캔버스) 다운로드
   a.click();
 }
 
 // 파일 첨부 클릭하면
 function onFileChange(event) {
-  // 자바스크립트를 이용해 파일을 가져와
+  // 자바스크립트를 이용해 (첫 번째)파일을 가져와
   const file = event.target.files[0];
-  // 해당 파일의 URL을 얻음
+  // 해당 파일의 브라우저(인터넷에 올라가지는 않음) 메모리 URL을 얻음
   const url = URL.createObjectURL(file);
-  // 이미지 생성
+  // document.createElement("img") 와 동일 <- index.html에 img 태그 생성
   const image = new Image();
-  // 이미지 소스
+  // 이미지의 소스 속성을 URL로 설정
   image.src = url;
-  // 불러옴
+  // 이미지 로드 끝나면 drawImage 호출
   image.onload = function () {
     // ctx.drawImage(첨부한 이미지, X좌표, Y좌표, 이미지 너비, 이미지 높이);
+    ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     // 기준점이 (0, 0) -> 이미지가 좌측 상단에 여백 없이 붙어서 출력
     // 이미지 너비 및 높이를 캔버스와 동일하게 설정 -> 이미지가 캔버스 전체를 채움
-    ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   };
 }
 
@@ -164,15 +164,18 @@ function onTextDoubleClick(event) {
   const text = textInput.value;
   // 텍스트 입력했을 때
   if (text !== null) {
-    // 현재 브러쉬 굵기 저장
+    // 현재 브러쉬 상태 저장
     ctx.save();
-    // lineWidth 1로 수정해야 텍스트가 제대로 표시됨
-    ctx.lineWidth = 1;
+
+    // strokeText에선 lineWidth 1로 수정해야 텍스트가 여러겹으로 표시되지 않음
+    // -> fillText에선 아래 코드 없어도 무방해 주석처리함
+    // ctx.lineWidth = 1;
+
     // 텍스트 크기 및 글꼴 설정
     ctx.font = "48px serif";
     // ctx.fillText(입력한 텍스트, X좌표, Y좌표);
     ctx.fillText(text, event.offsetX, event.offsetY);
-    // 브러쉬를 저장한 굵기로 되돌림
+    // 브러쉬를 저장한 상태로 되돌림
     ctx.restore();
   }
 }
