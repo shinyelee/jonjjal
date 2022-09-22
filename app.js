@@ -12,6 +12,8 @@ const colorOptions = Array.from(
 );
 // index.html의 mode-btn(모드 버튼)
 const modeBtn = document.getElementById("mode-btn");
+// index.html의 undo-btn(지우기 버튼)
+const undoBtn = document.getElementById("undo-btn");
 // index.html의 reset-btn(리셋 버튼)
 const resetBtn = document.getElementById("reset-btn");
 // index.html의 save-btn(저장 버튼)
@@ -37,6 +39,11 @@ ctx.lineCap = "round";
 let isPainting = false;
 // isFilling이 true면 캔버스 채우고 false면 안 채움
 let isFilling = false;
+
+// 캔버스에 그려진 선의 경로를 저장하는 배열
+let restoreArray = [];
+// 그려진 선이 하나도 없을 때 인덱스 기본값을 -1로 설정
+let index = -1;
 
 // 마우스 움직이는 중
 function onMouseMove(event) {
@@ -65,6 +72,14 @@ function stopDrawing() {
   isPainting = false;
   // 새 경로(path) 시작 -> 이미 그린 선의 굵기가 함께 바뀌는 것 방지
   ctx.beginPath();
+  // mouseup 이벤트가 일어날 때만
+  if (event.type == "mouseup") {
+    // 그린 선을 배열에 저장하고
+    restoreArray.push(ctx.getImageData(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT));
+    // 인덱스 값 +1
+    index += 1;
+    console.log(restoreArray);
+  }
 }
 
 // 선 굵기 변경
@@ -117,12 +132,33 @@ function onCanvasClilck() {
   }
 }
 
+// 지우기 버튼 클릭하면
+function onUndoClick() {
+  // 인덱스 값이 0보다 작을 때(초기 상태)
+  if (index <= 0) {
+    // 캔버스 리셋
+    onResetClick();
+    // 선을 하나라도 그렸을 때
+  } else {
+    // 인덱스 값 -1하고
+    index -= 1;
+    // 배열에 마지막으로 저장된 선을 뺀
+    restoreArray.pop();
+    // 나머지 이미지 정보를 캔버스에 보여줌
+    ctx.putImageData(restoreArray[index], 0, 0);
+  }
+}
+
 // 리셋 버튼 클릭하면
 function onResetClick() {
   // 색을 하얀색으로 변경
   ctx.fillStyle = "white";
   // 캔버스 채움 -> 캔버스 초기화
   ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  // 선 경로 저장한 배열 비우고
+  restoreArray = [];
+  // 인덱스도 초기값으로 원복
+  index = -1;
 }
 
 // 저장 버튼을 클릭하면
@@ -204,6 +240,8 @@ canvas.addEventListener("dblclick", onTextDoubleClick);
 
 // 모드 버튼 클릭(그리기/채우기 전환) 이벤트 리스너
 modeBtn.addEventListener("click", onModeClick);
+// 지우기 버튼 클릭(마지막 선 삭제) 이벤트 리스너
+undoBtn.addEventListener("click", onUndoClick);
 // 리셋 버튼 클릭(캔버스 초기화) 이벤트 리스너
 resetBtn.addEventListener("click", onResetClick);
 // 저장 버튼 클릭(현재 캔버스를 이미지 파일로 저장) 이벤트 리스너
