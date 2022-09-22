@@ -1,21 +1,95 @@
-/* 캔버스 크기 설정 */
-canvas {
-  width: 800px;
-  height: 800px;
-  border: 1px solid black;
-}
+/* reset.css 삽입 */
+@import "reset.css";
 
 /* 캔버스를 화면 가운데로 정렬 */
 body {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: gainsboro;
 }
 
-/* 색상 팔레트 */
-#color,
+/* 색 모음 */
+.color-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+/* 사용자 지정색 */
+#setting-color {
+  background-color: transparent;
+  width: 80px;
+  height: 80px;
+  margin-top: 10px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 팔레트 */
 .color-option {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
+}
+
+/* 사용자 지정색, 팔레트 */
+#setting-color::-webkit-color-swatch,
+.color-option {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-radius: 50%;
+  border: 5px solid white;
   cursor: pointer;
+  transition: transform ease-in-out 0.1s;
+}
+#setting-color:hover,
+.color-option:hover {
+  transform: scale(1.2);
+}
+
+/* 캔버스 크기 설정 */
+canvas {
+  width: 800px;
+  height: 800px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+/* 도구 모음 */
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 개별 버튼, 파일 첨부, 텍스트 입력란 */
+button,
+#text-input,
+#file-input::file-selector-button {
+  all: unset;
+  padding: 10px 0;
+  text-align: center;
+  font-weight: 500;
+  color: white;
+  background-color: cornflowerblue;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* 파일 첨부, 텍스트 입력란 */
+#text-input {
+  color: black;
+  background-color: white;
+}
+
+/* 파일 첨부 버튼 */
+#file-input::file-selector-button {
+  margin-right: 5px;
+  padding: 10px;
+  border: none;
 }
