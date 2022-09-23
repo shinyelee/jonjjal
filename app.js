@@ -20,8 +20,10 @@ const resetBtn = document.getElementById("reset-btn");
 const saveBtn = document.getElementById("save-btn");
 // index.html의 file-input(파일 첨부)
 const fileInput = document.getElementById("file-input");
-// // index.html의 font-size(폰트 사이즈)
+// index.html의 font-size(폰트 사이즈)
 const fontSize = document.getElementById("font-size");
+// index.html의 font-style(폰트 유형)
+const fontStyle = document.querySelector("#font-style");
 // index.html의 text-input(텍스트 입력란)
 const textInput = document.getElementById("text-input");
 
@@ -202,6 +204,8 @@ function onTextDoubleClick(event) {
   const text = textInput.value;
   // 폰트 크기의 범위(값)
   const size = fontSize.value;
+  // 폰트 목록에서 선택
+  const style = fontStyle.value;
   // 텍스트 입력했을 때
   if (text !== null) {
     // 현재 브러쉬 상태 저장
@@ -212,7 +216,7 @@ function onTextDoubleClick(event) {
     // ctx.lineWidth = 1;
 
     // 텍스트 크기 및 글꼴 설정
-    ctx.font = `${size}px serif`;
+    ctx.font = `${size}px ${style}`;
     // ctx.fillText(입력한 텍스트, X좌표, Y좌표);
     ctx.fillText(text, event.offsetX, event.offsetY);
     // 브러쉬를 저장한 상태로 되돌림

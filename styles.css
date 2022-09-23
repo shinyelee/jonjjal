@@ -67,7 +67,7 @@ canvas {
   gap: 15px;
 }
 
-/* 개별 버튼, 파일 첨부, 텍스트 입력란 */
+/* 개별 버튼, 드롭다운, 파일 첨부 */
 button,
 #text-input,
 #file-input::file-selector-button {
@@ -87,9 +87,21 @@ button,
   background-color: white;
 }
 
+/* 파일 첨부 버튼, 개별 버튼*/
+#file-input::file-selector-button:hover,
+button:hover {
+  background-color: royalblue;
+}
+
 /* 파일 첨부 버튼 */
 #file-input::file-selector-button {
   margin-right: 5px;
   padding: 10px;
   border: none;
+}
+
+/* 폰트 설정 */
+.font-option {
+  display: flex;
+  justify-content: space-between;
 }
