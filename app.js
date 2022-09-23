@@ -20,6 +20,8 @@ const resetBtn = document.getElementById("reset-btn");
 const saveBtn = document.getElementById("save-btn");
 // index.html의 file-input(파일 첨부)
 const fileInput = document.getElementById("file-input");
+// // index.html의 font-size(폰트 사이즈)
+const fontSize = document.getElementById("font-size");
 // index.html의 text-input(텍스트 입력란)
 const textInput = document.getElementById("text-input");
 
@@ -198,6 +200,8 @@ function onFileChange(event) {
 function onTextDoubleClick(event) {
   // 텍스트 입력란에 사용자가 입력한 텍스트 값 읽음
   const text = textInput.value;
+  // 폰트 크기의 범위(값)
+  const size = fontSize.value;
   // 텍스트 입력했을 때
   if (text !== null) {
     // 현재 브러쉬 상태 저장
@@ -208,12 +212,18 @@ function onTextDoubleClick(event) {
     // ctx.lineWidth = 1;
 
     // 텍스트 크기 및 글꼴 설정
-    ctx.font = "48px serif";
+    ctx.font = `${size}px serif`;
     // ctx.fillText(입력한 텍스트, X좌표, Y좌표);
     ctx.fillText(text, event.offsetX, event.offsetY);
     // 브러쉬를 저장한 상태로 되돌림
     ctx.restore();
   }
+}
+
+// 폰트 크기 변경
+function onFontSizeChange(event) {
+  // font-size의 range를 받아와서 폰트 크기로 설정
+  ctx.font = event.target.value;
 }
 
 // 캔버스 내 이벤트
@@ -253,5 +263,7 @@ colorOptions.forEach((color) => color.addEventListener("click", onColorClick));
 settingColor.addEventListener("change", onColorChange);
 // 변경(선 굵기) 이벤트 리스너
 lineWidth.addEventListener("change", onLineWidthChange);
+// 변경(선 굵기) 이벤트 리스너
+fontSize.addEventListener("change", onFontSizeChange);
 // 변경(파일 첨부) 이벤트 리스너
 fileInput.addEventListener("change", onFileChange);

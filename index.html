@@ -68,7 +68,7 @@
   <canvas></canvas>
   <!-- 도구 모음 -->
   <div class="buttons">
-    <!-- 선 굵기 - 최솟값1, 최댓값9, 기본값5  -->
+    <!-- 선 굵기 - 최솟값1, 최댓값50, 기본값10  -->
     <input id="line-width" type="range" min="1" max="50" value="10" />
     <!-- 모드 버튼 - 그리기 또는 채우기 -->
     <button id="mode-btn">채우기</button>
@@ -78,6 +78,15 @@
     <button id="reset-btn">리셋</button>
     <!-- 파일 첨부 - 이미지 파일 형식만 가능 -->
     <input id="file-input" type="file" accept="image/*" />
+    <!-- 폰트 크기 - 최솟값5, 최댓값100, 기본값20 -->
+    <input
+      id="font-size"
+      type="number"
+      placeholder="글자 크기"
+      min="1"
+      max="100"
+      value="20"
+    />
     <!-- 텍스트 삽입 - 입력 후 원하는 위치에 더블클릭 -->
     <input
       id="text-input"
