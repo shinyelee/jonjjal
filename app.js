@@ -4,6 +4,8 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 // index.html의 line-width(선 굵기)
 const lineWidth = document.getElementById("line-width");
+// index.html의 range-value(선 굵기를 숫자로 나타낸 값)
+const rangeValue = document.getElementById("range-value");
 // index.html의 setting-color(사용자 지정색)
 const settingColor = document.getElementById("setting-color");
 // index.html의 color-option(색 팔레트)들을 배열로 생성
@@ -34,6 +36,8 @@ CANVAS_HEIGHT = 800;
 // 캔버스 좌표 설정 -> 좌측 상단 기준으로 시작(0, 0)
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
+// 선 굵기를 숫자로 나타낸 값
+rangeValue.innerText = lineWidth.value;
 // 선 굵기의 범위(값)
 ctx.lineWidth = lineWidth.value;
 // 선 끝 둥글게
@@ -90,7 +94,13 @@ function stopDrawing() {
 function onLineWidthChange(event) {
   // line-width의 range를 받아와서 선 굵기로 설정
   ctx.lineWidth = event.target.value;
+  // rangeValue.innerHTML = ctx.lineWidth;
 }
+// 선 굵기 변경을 위해
+lineWidth.oninput = function () {
+  // slider thumb을 움직일 때 바뀌는 값을 텍스트에 실시간으로 반영
+  rangeValue.innerHTML = this.value;
+};
 
 // 사용자 지정색 설정하면
 function onColorChange(event) {
@@ -116,14 +126,14 @@ function onModeClick() {
   if (isFilling) {
     // 그리기 모드로 변경
     isFilling = false;
-    // 버튼의 텍스트는 반대로 "채우기"로 변경
-    modeBtn.innerText = "채우기";
+    // 버튼의 텍스트도 변경
+    modeBtn.innerText = "그리기";
     // 그리기 모드일 때
   } else {
     // 채우기 모드로 변경
     isFilling = true;
-    // 버튼의 텍스트는 반대로 "그리기"로 변경
-    modeBtn.innerText = "그리기";
+    // 버튼의 텍스트도 변경
+    modeBtn.innerText = "채우기";
   }
 }
 
@@ -210,11 +220,6 @@ function onTextDoubleClick(event) {
   if (text !== null) {
     // 현재 브러쉬 상태 저장
     ctx.save();
-
-    // strokeText에선 lineWidth 1로 수정해야 텍스트가 여러겹으로 표시되지 않음
-    // -> fillText에선 아래 코드 없어도 무방해 주석처리함
-    // ctx.lineWidth = 1;
-
     // 텍스트 크기 및 글꼴 설정
     ctx.font = `${size}px ${style}`;
     // ctx.fillText(입력한 텍스트, X좌표, Y좌표);

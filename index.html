@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- fontawesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+    />
     <title>paintJS</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -68,10 +73,21 @@
   <canvas></canvas>
   <!-- 도구 모음 -->
   <div class="buttons">
-    <!-- 선 굵기 - 최솟값1, 최댓값50, 기본값10  -->
-    <input id="line-width" type="range" min="1" max="50" value="10" />
+    <div class="line-option">
+      <!-- 선 굵기 - 최솟값1, 최댓값50, 기본값10  -->
+      <input
+        id="line-width"
+        class="slider"
+        type="range"
+        min="1"
+        max="50"
+        value="10"
+      />
+      <!-- 선 굵기를 숫자로 나타낸 값 -->
+      <p><span id="range-value"></span>px</p>
+    </div>
     <!-- 모드 버튼 - 그리기 또는 채우기 -->
-    <button id="mode-btn">채우기</button>
+    <button id="mode-btn">그리기</button>
     <!-- 지우기 버튼 - 마지막으로 그린 선 삭제 -->
     <button id="undo-btn">지우기</button>
     <!-- 리셋 버튼 - 캔버스 전체 초기화 -->

@@ -67,10 +67,38 @@ canvas {
   gap: 15px;
 }
 
+/* 선 굵기 */
+#line-width {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  margin-top: 15px;
+  border-radius: 5px;
+  background: white;
+  outline: none;
+}
+#line-width::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  background: cornflowerblue;
+  cursor: pointer;
+}
+
+/* 선 굵기를 숫자로 나타낸 값 */
+p {
+  margin-top: 10px;
+  text-align: center;
+  color: cornflowerblue;
+}
+
 /* 개별 버튼, 드롭다운, 파일 첨부 */
 button,
 #text-input,
-#file-input::file-selector-button {
+#file-input::file-selector-button,
+select {
   all: unset;
   padding: 10px 0;
   text-align: center;
@@ -81,10 +109,14 @@ button,
   cursor: pointer;
 }
 
-/* 파일 첨부, 텍스트 입력란 */
-#text-input {
+/* 텍스트 입력란, 폰트 설정 */
+#file-input,
+#text-input,
+#font-size,
+#font-style {
   color: black;
   background-color: white;
+  border-radius: 5px;
 }
 
 /* 파일 첨부 버튼, 개별 버튼*/
@@ -104,4 +136,13 @@ button:hover {
 .font-option {
   display: flex;
   justify-content: space-between;
+}
+#font-size,
+#font-style {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
 }
