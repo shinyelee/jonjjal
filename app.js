@@ -86,7 +86,7 @@ function stopDrawing() {
     restoreArray.push(ctx.getImageData(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT));
     // 인덱스 값 +1
     index += 1;
-    console.log(restoreArray);
+    // console.log(restoreArray);
   }
 }
 
