@@ -175,20 +175,6 @@ function onResetClick() {
   index = -1;
 }
 
-// 저장 버튼을 클릭하면
-function onSaveClick() {
-  // 현재 캔버스를 URL로 변환
-  const url = canvas.toDataURL();
-  // index.html에 a 태그(링크) 생성
-  const a = document.createElement("a");
-  // URL을 링크에 넣음
-  a.href = url;
-  // 링크에 download 속성 추가해 파일 이름 image.png로 설정
-  a.download = "image.png";
-  // 임의로 링크 클릭 -> 저장된 이미지(현재 캔버스) 다운로드
-  a.click();
-}
-
 // 파일 첨부 클릭하면
 function onFileChange(event) {
   // 자바스크립트를 이용해 (첫 번째)파일을 가져와
@@ -235,6 +221,20 @@ function onFontSizeChange(event) {
   ctx.font = event.target.value;
 }
 
+// 저장 버튼을 클릭하면
+function onSaveClick() {
+  // 현재 캔버스를 URL로 변환
+  const url = canvas.toDataURL();
+  // index.html에 a 태그(링크) 생성
+  const a = document.createElement("a");
+  // URL을 링크에 넣음
+  a.href = url;
+  // 링크에 download 속성 추가해 파일 이름 image.png로 설정
+  a.download = "image.png";
+  // 임의로 링크 클릭 -> 저장된 이미지(현재 캔버스) 다운로드
+  a.click();
+}
+
 // 캔버스 내 이벤트
 
 // 커서 움직임 이벤트 리스너
@@ -272,7 +272,7 @@ colorOptions.forEach((color) => color.addEventListener("click", onColorClick));
 settingColor.addEventListener("change", onColorChange);
 // 변경(선 굵기) 이벤트 리스너
 lineWidth.addEventListener("change", onLineWidthChange);
-// 변경(선 굵기) 이벤트 리스너
+// 변경(폰트 크기) 이벤트 리스너
 fontSize.addEventListener("change", onFontSizeChange);
 // 변경(파일 첨부) 이벤트 리스너
 fileInput.addEventListener("change", onFileChange);
